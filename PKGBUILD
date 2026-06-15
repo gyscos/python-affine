@@ -17,6 +17,11 @@ arch=('any')
 source=("https://pypi.python.org/packages/source/a/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
 sha256sums=('a24d818d6a836c131976d22f8c27b8d3ca32d0af64c1d8d29deb7bafa4da1eea')
 
+prepare() {
+    cd "$srcdir/${_pkgname}-$pkgver"
+    sed -i 's/flit_core >=3.2,<4/flit_core >=3.2,<5/' pyproject.toml
+}
+
 build() {
     cd "$srcdir/${_pkgname}-$pkgver"
     python -m build --wheel --no-isolation
